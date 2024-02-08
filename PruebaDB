@@ -1,0 +1,622 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.10 (Ubuntu 14.10-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.10 (Ubuntu 14.10-0ubuntu0.22.04.1)
+
+-- Started on 2024-02-08 11:29:00 -04
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 220 (class 1259 OID 16475)
+-- Name: item; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.item (
+    id integer NOT NULL,
+    warehouse integer,
+    product integer,
+    quantity integer
+);
+
+
+ALTER TABLE public.item OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16474)
+-- Name: item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.item_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.item_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3460 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.item_id_seq OWNED BY public.item.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16446)
+-- Name: movimiento; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.movimiento (
+    id integer NOT NULL,
+    date date,
+    origin integer,
+    destination integer,
+    product integer,
+    quantity integer
+);
+
+
+ALTER TABLE public.movimiento OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16445)
+-- Name: movimiento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.movimiento_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.movimiento_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3461 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: movimiento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.movimiento_id_seq OWNED BY public.movimiento.id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16420)
+-- Name: product; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product (
+    id integer NOT NULL,
+    name character varying(255),
+    price double precision
+);
+
+
+ALTER TABLE public.product OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16419)
+-- Name: product_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.product_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3462 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.product_id_seq OWNED BY public.product.id;
+
+
+--
+-- TOC entry 210 (class 1259 OID 16386)
+-- Name: roles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.roles (
+    id integer NOT NULL,
+    name character varying(255)
+);
+
+
+ALTER TABLE public.roles OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16385)
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.roles_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.roles_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3463 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 16395)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    username character varying(255),
+    password character varying(255),
+    rol_id integer,
+    access_token character varying(255),
+    status boolean
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16394)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3464 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 16411)
+-- Name: warehouse; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.warehouse (
+    id integer NOT NULL,
+    name character varying(255),
+    capacity integer
+);
+
+
+ALTER TABLE public.warehouse OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16410)
+-- Name: warehouse_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.warehouse_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.warehouse_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3465 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: warehouse_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.warehouse_id_seq OWNED BY public.warehouse.id;
+
+
+--
+-- TOC entry 3277 (class 2604 OID 16478)
+-- Name: item id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item ALTER COLUMN id SET DEFAULT nextval('public.item_id_seq'::regclass);
+
+
+--
+-- TOC entry 3276 (class 2604 OID 16449)
+-- Name: movimiento id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimiento ALTER COLUMN id SET DEFAULT nextval('public.movimiento_id_seq'::regclass);
+
+
+--
+-- TOC entry 3275 (class 2604 OID 16423)
+-- Name: product id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product ALTER COLUMN id SET DEFAULT nextval('public.product_id_seq'::regclass);
+
+
+--
+-- TOC entry 3272 (class 2604 OID 16389)
+-- Name: roles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
+
+
+--
+-- TOC entry 3273 (class 2604 OID 16398)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 3274 (class 2604 OID 16414)
+-- Name: warehouse id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.warehouse ALTER COLUMN id SET DEFAULT nextval('public.warehouse_id_seq'::regclass);
+
+
+--
+-- TOC entry 3454 (class 0 OID 16475)
+-- Dependencies: 220
+-- Data for Name: item; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.item (id, warehouse, product, quantity) FROM stdin;
+1	4	2	3
+2	6	2	5
+\.
+
+
+--
+-- TOC entry 3452 (class 0 OID 16446)
+-- Dependencies: 218
+-- Data for Name: movimiento; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.movimiento (id, date, origin, destination, product, quantity) FROM stdin;
+27	2024-02-08	4	6	2	1
+\.
+
+
+--
+-- TOC entry 3450 (class 0 OID 16420)
+-- Dependencies: 216
+-- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.product (id, name, price) FROM stdin;
+2	aaaaaa	33
+\.
+
+
+--
+-- TOC entry 3444 (class 0 OID 16386)
+-- Dependencies: 210
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.roles (id, name) FROM stdin;
+1	Admin
+2	Operator
+\.
+
+
+--
+-- TOC entry 3446 (class 0 OID 16395)
+-- Dependencies: 212
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, username, password, rol_id, access_token, status) FROM stdin;
+1	bahimer@bahi	1234	1		t
+2	bahimer@gmail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	\N	\N	t
+5	bahimer80@gmail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+6	bahimer81@gmail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+8	bahimer82@gmail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+12	bahimer33@gmail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+14	bahimer1@gmail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+15	bahimer10@gmail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+16	bahier10@gmail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+17	bahier10@mail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+18	bahier10mail.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+19	bahier10mafjil.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+20	bahdier10mafjil.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+21	bahdetier10mafjil.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+22	bahdetiers10mafjil.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+23	bahdetdgiers10mafjil.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+24	aaa@aaaa.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+25	bb@aaaa.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+26	bb@aaada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+27	bb@daaada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	\N	t
+28	bb@daaddddada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjgsImlhdCI6MTcwNzM2NTA0MH0.zQ_u_ga1vAvPaY0b85Y4IwlA66zSAbEfeMjFq0YeQtQ	t
+29	bb@dddddaaddddada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjksImlhdCI6MTcwNzM4NzAzOX0.1CRS-4kYECAVxLq4x2q5sYghyuQaqelCMm4HlFmgTwM	t
+31	bb@ddddsaaddddada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6MTcwNzM4NzE4Nn0.avu73Gj86DiaQmawZRzUegW6kNE27QnGjy9eOXrSJ38	t
+33	bb@dddddsaaddddada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImlhdCI6MTcwNzM4NzIxNH0.OmYzogdfNeXVXbDS9O2walspPt20SRArdWWmhqqBXWc	t
+34	bb@dddddsaadddddada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzQsImlhdCI6MTcwNzM4NzI2M30.p9GIoBmqGl9waFRYtAFf786BAY5Uenwu6QGxUMY-ob8	t
+35	bb@dddddsaadddddddada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUsImlhdCI6MTcwNzM4NzI5Nn0.4bnan-2AXQ_hJQN8B_RbIc5VcKM0JnodDF4QR5pOfrk	t
+36	bb@ddddddsaadddddddada.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImlhdCI6MTcwNzM4NzMyNn0.noEx49xspFd4tfl2eidnAYY-JbvQVm0PpT6KvpwzBH4	t
+37	aaa@bbb.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsImlhdCI6MTcwNzM4NzQxM30.avFVqqMnH_ZId7KFPnw61-oiy9smWMYhCXf6rbVYmlg	t
+38	aaaa@bbb.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzgsImlhdCI6MTcwNzM4NzQ2M30.mAl4bfcH6Y6pE2fyUbh6vHh4ySWVcidcl6dsSvacrDE	t
+40	aaaa@bsbb.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDAsImlhdCI6MTcwNzM4NzUxNn0.bPrwJPjjZnuZXcevJKFyAQ_DBS0g7QebErX_EiUzPPE	t
+41	aaaa@bsbbb.com	ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsImlhdCI6MTcwNzM4NzU1M30._TLhVSxQHBIWvb7byJTTiqurwB5P0Or04WGrWIeDTyQ	t
+42	bahimer	03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4	\N	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDIsImlhdCI6MTcwNzQwMjkwMX0.fsQT6re1aQd3DMIwtq1wN0CRutgbqOIbF_zVYEkpOSk	t
+44	bahimer2	03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDQsInJvbGUiOiIxIiwiaWF0IjoxNzA3NDAzMDIxfQ.28RpCEOvhwPb32qNx6taHbo8SRADZWktrc1EqpUb_Ag	t
+45	bahimer3	03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDUsInJvbGUiOiIxIiwiaWF0IjoxNzA3NDAzMDMzfQ.0wKmyUBVtmKcKCMCPpDhI6zynjiOdJbnm3f-DsuikUw	t
+46	bahimer5	03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4	2	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDYsInJvbGUiOjIsImlhdCI6MTcwNzQwNDYyNX0.EG5LrgGTtVzXPTKWIPzKJwfjoEjrc-6kGMWBFw6ILPU	t
+47	bahimer8	03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDcsImlhdCI6MTcwNzQwNTA3OH0.CTlB4MwGeaF9UoNpI7tccOmauM7b1Kxnu91TIca_BQY	t
+48	bahimer9	03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4	1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImlhdCI6MTcwNzQwNTA5MH0.zzJMDbotXJX_sXB_Z3Bjb0qfjh588lnCQ_g8Fje13_g	t
+\.
+
+
+--
+-- TOC entry 3448 (class 0 OID 16411)
+-- Dependencies: 214
+-- Data for Name: warehouse; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.warehouse (id, name, capacity) FROM stdin;
+4	Bog	11
+5	aaa	22
+6	effd	34
+\.
+
+
+--
+-- TOC entry 3466 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.item_id_seq', 2, true);
+
+
+--
+-- TOC entry 3467 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: movimiento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.movimiento_id_seq', 27, true);
+
+
+--
+-- TOC entry 3468 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.product_id_seq', 2, true);
+
+
+--
+-- TOC entry 3469 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.roles_id_seq', 2, true);
+
+
+--
+-- TOC entry 3470 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 49, true);
+
+
+--
+-- TOC entry 3471 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: warehouse_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.warehouse_id_seq', 7, true);
+
+
+--
+-- TOC entry 3297 (class 2606 OID 16480)
+-- Name: item item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item
+    ADD CONSTRAINT item_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3295 (class 2606 OID 16451)
+-- Name: movimiento movimiento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimiento
+    ADD CONSTRAINT movimiento_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3291 (class 2606 OID 16427)
+-- Name: product product_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product
+    ADD CONSTRAINT product_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 3293 (class 2606 OID 16425)
+-- Name: product product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product
+    ADD CONSTRAINT product_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3279 (class 2606 OID 16393)
+-- Name: roles roles_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 3281 (class 2606 OID 16391)
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3283 (class 2606 OID 16402)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3285 (class 2606 OID 16404)
+-- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_username_key UNIQUE (username);
+
+
+--
+-- TOC entry 3287 (class 2606 OID 16418)
+-- Name: warehouse warehouse_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.warehouse
+    ADD CONSTRAINT warehouse_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 3289 (class 2606 OID 16416)
+-- Name: warehouse warehouse_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.warehouse
+    ADD CONSTRAINT warehouse_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3303 (class 2606 OID 16486)
+-- Name: item item_product_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item
+    ADD CONSTRAINT item_product_fkey FOREIGN KEY (product) REFERENCES public.product(id);
+
+
+--
+-- TOC entry 3302 (class 2606 OID 16481)
+-- Name: item item_warehouse_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item
+    ADD CONSTRAINT item_warehouse_fkey FOREIGN KEY (warehouse) REFERENCES public.warehouse(id);
+
+
+--
+-- TOC entry 3300 (class 2606 OID 16457)
+-- Name: movimiento movimiento_destination_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimiento
+    ADD CONSTRAINT movimiento_destination_fkey FOREIGN KEY (destination) REFERENCES public.warehouse(id);
+
+
+--
+-- TOC entry 3299 (class 2606 OID 16452)
+-- Name: movimiento movimiento_origin_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimiento
+    ADD CONSTRAINT movimiento_origin_fkey FOREIGN KEY (origin) REFERENCES public.warehouse(id);
+
+
+--
+-- TOC entry 3301 (class 2606 OID 16462)
+-- Name: movimiento movimiento_product_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimiento
+    ADD CONSTRAINT movimiento_product_fkey FOREIGN KEY (product) REFERENCES public.product(id);
+
+
+--
+-- TOC entry 3298 (class 2606 OID 16405)
+-- Name: users users_rol_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_rol_id_fkey FOREIGN KEY (rol_id) REFERENCES public.roles(id);
+
+
+-- Completed on 2024-02-08 11:29:00 -04
+
+--
+-- PostgreSQL database dump complete
+--
+
