@@ -56,11 +56,6 @@ class Database {
     }
 
     async update(tableName, id, data) {
-        // const updates = Object.entries(data).map(([key, value]) => `${key} = ${value}`).join(',');
-        // const query = `UPDATE ${tableName} SET ${updates} WHERE id = ${data.length + 1} RETURNING *;`;
-        // const result = await this.query(query, [...Object.values(data), id]);
-        // return result.rows[0];
-
         const keys = Object.keys(data);
         const values = Object.values(data);
         let setClause = '';

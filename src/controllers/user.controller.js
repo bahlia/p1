@@ -18,7 +18,7 @@ const userController = {
         });
 
         if( response ){
-            const token = jwt.sign({ id: response.id, role: response.role_id }, 'API_KEY');
+            const token = jwt.sign({ id: response.id, role: response.rol_id }, 'API_KEY');
 
             const put = await db.update('users',response.id,{
                 access_token: token
@@ -38,12 +38,11 @@ const userController = {
 
         if( user.length > 0 ){
             if( user[0].password == pass ){
-                const token = jwt.sign({ id: user[0].id, role: user[0].role_id }, 'API_KEY');
+                const token = jwt.sign({ id: user[0].id, role: user[0].rol_id }, 'API_KEY');
                 return {
                     accessToken: user[0].access_token
                 }
             }
-            
         }
 
     }
