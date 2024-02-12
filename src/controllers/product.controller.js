@@ -69,12 +69,7 @@ const productController = {
             }
 
             if( boolmov ){
-                // const movimiento = db.create("movimiento",{
-                //     date: new Date(),
-                //     destination: warehouse.id,
-                //     product: product.id,
-                //     quantity: quantity
-                // });
+
                 return {
                     status: true,
                     message: "Se agrego el producto a la bodega."

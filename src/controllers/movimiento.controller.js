@@ -32,6 +32,12 @@ const movimientoController = {
 
         if( toItem.length > 0 ){
             toItem = toItem[0];
+        } else {
+            toItem = await db.create("item",{
+                warehouse: to.id,
+                product: prod.id,
+                quantity: 0
+            });
         }
 
         let total = quantity + toItem.quantity;
